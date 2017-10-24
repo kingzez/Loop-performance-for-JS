@@ -1,1 +1,94 @@
 # Loop-performance-for-JS
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>loop performance</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <script type="text/javascript">
+    let arr = (function generator() {
+        let arr = [];
+        for (var i = 10000 - 1; i >= 0; i--) {
+            arr.push(i);
+        }
+        console.log(arr)
+        return arr;
+    })()
+
+    /**
+     * loop time: 1623.7421875ms
+     * loop time: 2033.44287109375ms
+     * loop time: 1767.92724609375ms
+     * loop time: 1646.820068359375ms
+     * loop time: 1794.49609375ms
+     */
+    function loopDesc() {
+        console.time('loopDesc time')
+        for (var i = arr.length - 1; i >= 0; i--) {
+            console.log(arr[i]);
+        }
+        console.timeEnd('loopDesc time')
+
+    }
+    /**
+     * loop time: 2323.4697265625ms
+     * loop time: 2103.177001953125ms
+     * loop time: 1867.5830078125ms
+     * loop time: 2056.916015625ms
+     * loop time: 1934.626953125ms
+     */
+    function loopAsc() {
+        console.time('loopAsc time')
+        for (var i = 0; i <= arr.length; i++) {
+            console.log(arr[i]);
+        }
+        console.timeEnd('loopAsc time')
+    }
+
+    /**
+     * loop time: 2524.0712890625ms
+     * loop time: 2289.671875ms
+     * loop time: 2382.203857421875ms
+     * loop time: 2306.39599609375ms
+     * loop time: 2250.466064453125ms
+     */
+    function mapLoop() {
+        console.time('mapLoop time')
+        arr.map((i) => {
+            console.log(i)
+        })
+        console.timeEnd('mapLoop time')
+    }
+
+    /**
+     * loop time: 2163.85302734375ms
+     * loop time: 2467.56396484375ms
+     * loop time: 2321.04296875ms
+     * loop time: 2402.632080078125ms
+     * loop time: 2373.017822265625ms
+     */
+    function foreachLoop() {
+        console.time('foreachLoop time')
+        arr.forEach((i) => {
+            console.log(i)
+        })
+        console.timeEnd('foreachLoop time')
+    }
+
+    loopDesc();
+    loopAsc();
+    mapLoop();
+    foreachLoop();
+    </script>
+</body>
+
+</html>
+```
